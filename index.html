@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Daugther of baco</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="./imagenes/Logo/logo.png" alt="Logo de Daugther of baco">
+        </div>
+        <div class="titulo-container">
+            <h1 id="titulo">Daugther of baco</h1>
+            <h2 id="subtitulo">Productos Actualmente disponibles</h2>
+        </div>
+        <div class="whatsapp-container">
+            <a href="https://wa.me/2615542322?text=Hola%2C%20Buen%20dia%21%20Tengo%20una%20consulta%20respecto%20a%20la%20compra%20de%20los%20vinos.">
+                <img src="https://i.ibb.co/q7KJSp2/Logo-Wpp.jpg" alt="Logo-Wpp" border="0">
+                <span>Escriba sus consulta</span>
+            </a>
+        </div>
+        <button id="abrir-carrito" class="oculto"> Mi Carrito</button>
+
+    </header>
+    <main>
+        <!-- Grid para los productos -->
+        <div class="row" id="grid-productos">
+            <!-- productos mediante JS -->
+            <div id="carrito"class="oculto">
+                <div id="carrito-container" class="oculto"></div>
+                <div class="carrito-total oculto">Total: $<span id="total">0</span></div>
+                <button id="hacer-pedido" class="oculto hacer-pedido">Hacer pedido</button>
+            </div>        
+        </div>
+    </main> 
+    <script src="index.js"></script> 
+</body>
+</html>
+
