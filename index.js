@@ -98,6 +98,15 @@ function crearElementoProducto(producto) { // crear un elemento HTML para un pro
                     <p>Precio: $${producto.precio}</p>
                         <p>Descripción: ${producto.descripcion}</p>`
                 ;
+                const imgProducto = divProducto.querySelector('img');
+
+    const infoBtn = document.createElement('button');
+    infoBtn.textContent = 'Más información';
+    infoBtn.classList.add('info-btn');
+    infoBtn.style.visibility = 'hidden';
+    infoBtn.addEventListener('click', mostrarInfoProducto.bind(infoBtn, producto));
+    divProducto.appendChild(infoBtn); 
+
 
     const botonAgregar = document.createElement('button'); // Creamos un elemento button para agregar el producto al carrito
     botonAgregar.id = 'boton-agregar';
@@ -108,14 +117,12 @@ function crearElementoProducto(producto) { // crear un elemento HTML para un pro
       actualizarTotalCarrito(); // Actualiza el total del carrito
     }); 
     divProducto.appendChild(botonAgregar); // Agregamos el botón al div del producto
+    
+    divProducto.addEventListener('mouseover', mostrarBotonInfo);
+    divProducto.addEventListener('mouseout', ocultarBotonInfo);
+
     return divProducto; // Retornamos el div con la información del producto y el botón para agregarlo al carrito
 } 
-
-producto.forEach(function (producto) { // Creamos un elemento HTML para cada producto y lo agregamos al grid de productos 
-    const elementoProducto = crearElementoProducto(producto); // Creamos un elemento HTML con la información del producto
-    gridProductos.appendChild(elementoProducto); // Agregamos el elemento creado al grid de productos
-
-});
 
 function agregarAlCarrito(producto) { // Función para agregar un producto al carrito 
     const itemCarrito = { // Crea un objeto que represente un ítem del carrito con la información del producto
@@ -268,7 +275,7 @@ function mostrarTotalYPedido() { //Muestra u oculta el total y el botón "Hacer 
         }
 }
     
-function actualizarCarritoEnInterfaz() { //Actualiza el carrito en la interfaz y muestra el total y el botón "Hacer pedido".
+function actualizarCarritoEnInterfaz() { //Actualiza el carrito en la inte muestra total de pedido.
         carritoContainer.innerHTML = "";
         carrito.forEach((producto) => {
         agregarProductoCarrito(producto);
@@ -276,6 +283,80 @@ function actualizarCarritoEnInterfaz() { //Actualiza el carrito en la interfaz y
         actualizarTotalCarrito();
         mostrarTotalYPedido();
 }
+
+
+function mostrarBotonInfo() { // muestra boton
+    const botonInfo = this.querySelector('.info-btn');
+    if (botonInfo) {
+        botonInfo.style.visibility = 'visible';
+    }
+}
+
+function ocultarBotonInfo() { // esconder boton
+    const botonInfo = this.querySelector('.info-btn');
+    if (botonInfo) {
+        botonInfo.style.visibility = 'hidden';
+    }
+}
+
+async function mostrarInfoProducto(producto) { // muiestra productos
+    const detalles = producto.info_puntuaciones;
+
+    const respuesta = await fetch('./json/productos.json');
+    const productos = await respuesta.json();
+    const indexProducto = productos.findIndex(p => p.id === producto.id);
+
+  // crea html con la info
+    const contenidoHTML = `
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex align-items-center">
+                <img class="img-fluid img-thumbnail" src="${productos[indexProducto].imagen}" alt="${productos[indexProducto].nombre}" style="max-width: 150px;">
+                <h2 class="ml-3">${productos[indexProducto].nombre}</h2>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3>Informacion de medallas:</h3>
+                <ul>
+                <li>Medallas: ${detalles.medallas} p</li>
+                <li>Puntuacion Parker : ${detalles.PuntuacionParker} </li> 
+            </div>
+        </div>
+        </div>
+    `;
+
+  // contenido a modal
+    const modalExistente = document.querySelector('#infoModal');
+    if (modalExistente) {
+    modalExistente.remove();
+    }
+
+  // agreg html
+    document.body.insertAdjacentHTML('beforeend', contenidoHTML);
+    
+    $('#infoModal').modal('show');
+}
+    
+
+fetch('./json/productos.json') // actualiza json 
+    .then(response => response.json())
+    .then(productos => {
+    const gridProductos = document.getElementById('grid-productos');
+    productos.forEach(producto => {
+        gridProductos.appendChild(crearElementoProducto(producto));
+    });
+    return productos; // retornar los datos de los productos
+    })
+    .then(producto => {
+    console.log(producto); // acceso a los datos de los productos
+    })
+    .catch(error => console.error('Error al cargar los datos de los productos:', error));
+
 
 function generarMensajeWhatsApp() {
     

@@ -1,7 +1,7 @@
 header {
 	display: flex;
 	align-items: center;
-	background-color: #31062f;
+	background-color: #1d1d1d;
 	color: #fff;
 	padding: 20px;
   }
@@ -36,7 +36,7 @@ header {
 	box-sizing: border-box;
   }
   #abrir-carrito {
-	background-color: #410c1f;
+	background-color: #007bff;
 	color: #fff;
 	font-size: 1rem;
 	border: none;
@@ -51,12 +51,12 @@ header {
   }
   
   #abrir-carrito:hover {
-	background-color: #3d0a22;
+	background-color: #0056b3;
   }
   
   #abrir-carrito:focus {
 	outline: none;
-	box-shadow: 0 0 0 0.2rem rgba(52, 4, 48, 0.5);
+	box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
   }
   
 
@@ -108,7 +108,7 @@ header {
   }
   
   #boton-agregar {
-	background-color: #300819;
+	background-color: #007bff;
 	color: #fff;
 	border: none;
 	border-radius: 4px;
@@ -118,7 +118,7 @@ header {
   }
   
   #boton-agregar:hover {
-	background-color: #2d041a;
+	background-color: #0056b3;
   }
   
   @media (max-width: 991px) {
@@ -164,7 +164,7 @@ header {
   }
   
   footer {
-	background-color: #333333;
+	background-color: #410c28;
 	color: white;
 	padding: 20px;
 	width: 100%;
@@ -311,7 +311,7 @@ header {
   box-shadow: 0 0 0 0.2rem rgba(204, 204, 204, 0.5);
 }
 .oculto {
-    display: none !important;
+    display: none;
   }
 
 @media (min-width: 768px) {
